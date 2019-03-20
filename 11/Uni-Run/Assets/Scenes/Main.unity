@@ -1392,5 +1392,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGameover: 0
-  scoreText: {fileID: 0}
-  gameoverUI: {fileID: 0}
+  scoreText: {fileID: 1172056017}
+  gameoverUI: {fileID: 92948083}
