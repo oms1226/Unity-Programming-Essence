@@ -30,6 +30,24 @@ public class HelloCode : MonoBehaviour
         Debug.Log("몸무게:" + weight);
         Debug.Log("여성인가?:" + isFemale);
         Debug.Log("혈액형:" + bloodType);
+
+        float distance = GetDistance(0, 0, 3, 4);
+        Debug.Log("거리: " + distance);
     }
 
+    // 결과로는 실수를 주는 함수
+    // 두 점(x1, y1) (x2, y2) 사이의 거리를 리턴하는 함수
+    float GetDistance(float x1, float y1, float x2, float y2)
+    {
+        //가로 길이
+        float width = x2 - x1;
+        //세로 길이
+        float height = y2 - y1;
+        //가로 길이 제곱과 세로 길이 제곱을 더하기
+        float distance = width * width + height * height;
+        //제곱근 구하기
+        distance = Mathf.Sqrt(distance);
+        //계산된 거(빗변의 길이)
+        return distance;
+    }
 }
