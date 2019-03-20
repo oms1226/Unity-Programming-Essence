@@ -64,15 +64,32 @@ public class PlayerController : MonoBehaviour {
         animator.SetTrigger("Die");
    }
 
+    //2D Collider 속성을 가지고 있고 다른 Collider랑 부딪혔을 때 자동으로 호출된다
    private void OnTriggerEnter2D(Collider2D other) {
        // 트리거 콜라이더를 가진 장애물과의 충돌을 감지
-   }
+       if(other.CompareTag("Dead"))//== other.GameObject.CompareTag("Dead")
+        {
+            Die();
+        }
+    }
 
+    //일반 충돌 시 자동실행
    private void OnCollisionEnter2D(Collision2D collision) {
-       // 바닥에 닿았음을 감지하는 처리
-   }
+        // 바닥에 닿았음을 감지하는 처리
+        //대략 45' 경사 미만의 바닥이다
+        //충돌 지점 중에서 0번째 지점의 충돌 표면 수직방향의 화살표가 위로 많이 가있어야 함
+        if(collision.contacts[0].normal.y > 0.7f)
+        {
+            // 점프횟수를 리셋
+            jumpCount = 0;
+            // 바닥에 닿은 상태를 참으로
+            isGrounded = true;
+        }
 
+   }
+    //서로 충돌해서 붙어 있는 상태에서 떼어질때 자동실행
    private void OnCollisionExit2D(Collision2D collision) {
-       // 바닥에서 벗어났음을 감지하는 처리
+        // 바닥에서 벗어났음을 감지하는 처리
+        isGrounded = false;
    }
 }
