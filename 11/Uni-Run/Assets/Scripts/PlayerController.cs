@@ -68,6 +68,9 @@ public class PlayerController : MonoBehaviour {
         playerAudio.Play();
         //사망 시 튕겨나지 않도록 즉시 정지
         playerRigidbody.velocity = Vector2.zero;
+
+        //게임 오버처리를 실행
+        GameManager.instance.OnPlayerDead();
    }
 
     //2D Collider 중 "is Trigger" 속성을 가지고 있고 다른 Collider랑 부딪혔을 때 자동으로 호출된다

@@ -6,6 +6,11 @@ public class ScrollingObject : MonoBehaviour {
 
 
     private void Update() {
+        if(GameManager.instance.isGameover)
+        {
+            return;
+        }
+
         // 게임 오브젝트를 왼쪽으로 일정 속도로 평행 이동하는 처리
         //소문자로 시작하는 transform 으, 자신의 게임 오브젝트의 트랜스폼 컴포넌트로 즉시 접근
         //transform.Translate(Vector3.left * speed);

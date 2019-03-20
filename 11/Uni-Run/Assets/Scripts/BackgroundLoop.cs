@@ -4,7 +4,7 @@
 public class BackgroundLoop : MonoBehaviour {
     private float width; // 배경의 가로 길이
 
-    //Update 직전에 불리는 함
+    //Start 직전에 불리는 함수
     private void Awake() {
         // 가로 길이를 측정하는 처리
         // 자신의 박스 콜라이더에서 가로 길이를 찾아 width에 저장
