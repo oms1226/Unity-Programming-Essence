@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour {
         playerRigidbody.velocity = Vector2.zero;
    }
 
-    //2D Collider 속성을 가지고 있고 다른 Collider랑 부딪혔을 때 자동으로 호출된다
+    //2D Collider 중 "is Trigger" 속성을 가지고 있고 다른 Collider랑 부딪혔을 때 자동으로 호출된다
    private void OnTriggerEnter2D(Collider2D other) {
        // 트리거 콜라이더를 가진 장애물과의 충돌을 감지
        //충돌한 상대방 게임 오브젝트가 dead 태그를 가지고 있다면
