@@ -62,12 +62,20 @@ public class PlayerController : MonoBehaviour {
         isDead = true;
         //애니메이터 컴포넌트의 Die 트리커 파라미터를 당기기(셋하기)
         animator.SetTrigger("Die");
+        //오디어 소스의 클립을 사망 효과음으로 교체
+        playerAudio.clip = deathClip;
+        //오디오 소스 재생
+        playerAudio.Play();
+        //사망 시 튕겨나지 않도록 즉시 정지
+        playerRigidbody.velocity = Vector2.zero;
    }
 
     //2D Collider 속성을 가지고 있고 다른 Collider랑 부딪혔을 때 자동으로 호출된다
    private void OnTriggerEnter2D(Collider2D other) {
        // 트리거 콜라이더를 가진 장애물과의 충돌을 감지
-       if(other.CompareTag("Dead"))//== other.GameObject.CompareTag("Dead")
+       //충돌한 상대방 게임 오브젝트가 dead 태그를 가지고 있다면
+       //그리고 사당한 상태가 아니라면 (Not isDead)
+       if(!isDead && other.CompareTag("Dead"))//== other.GameObject.CompareTag("Dead")
         {
             Die();
         }
