@@ -21,10 +21,33 @@ public class PlayerController : MonoBehaviour {
         animator = GetComponent<Animator>();
         playerAudio = GetComponent<AudioSource>();
    }
+    //화면이 갱신될 때 자동 실행 (평균적으로 1초에 60)
+    private void Update() {
+    // 사용자 입력을 감지하고 점프하는 처리
+        //0: 마우스 왼쪽 버튼, 1: 마우스 오른쪽 버, 2: 마우스 휠
+        if(Input.GetMouseButtonDown(0) && jumpCount < 2)
+        {
+            //점프 횟수를 증가
+            jumpCount = jumpCount + 1;
+            //점프 직전에 중력 순간 속도를 제로로 만들기
+            playerRigidbody.velocity = Vector2.zero;
+            //리지드 바디를 통해 위쪽으로 힘주기
+            playerRigidbody.AddForce(new Vector2(0, jumpForce));
+            //오디오 소스 재생
+            playerAudio.Play();
 
-   private void Update() {
-       // 사용자 입력을 감지하고 점프하는 처리
-   }
+        } else if (Input.GetMouseButtonUp(0) && playerRigidbody.velocity.y > 0)//Input.GetMouseButtonUp(0) 손을 땔때만 감지한.
+        {
+            //손을 너무 일찍 때, 속도가 많이 반감되게 하기
+            //손을 오래 누르면 멀리 점프하기
+            playerRigidbody.velocity = playerRigidbody.velocity * 0.5f;
+        }
+        else
+        {
+
+        }
+        animator.SetBool("Grounded", isGrounded);
+    }
 
    private void Die() {
        // 사망 처리
