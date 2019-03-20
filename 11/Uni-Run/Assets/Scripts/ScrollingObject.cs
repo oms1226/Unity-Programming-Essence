@@ -13,7 +13,8 @@ public class ScrollingObject : MonoBehaviour {
         //transform.Translate(-speed, 0f, 0f);//겁나 빨리 움직인다.
         // 1초 60번 * 한번에 10m * 1/60 = 1초 10m
         //Time.deltaTime = Update 와 Update 사이의 실행 간격 = 화면의 갱신 주기
-        //1번에 60초 주기는 = 1/60
+        //1번에 60초 주기는 = Time.deltaTime = 1/60 초
+        //1번에 100초 주기는 = Time.deltaTime = 1/100 초
         transform.Translate(-speed * Time.deltaTime, 0f, 0f);
     }
 }
