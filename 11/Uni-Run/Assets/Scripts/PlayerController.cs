@@ -23,9 +23,14 @@ public class PlayerController : MonoBehaviour {
    }
     //화면이 갱신될 때 자동 실행 (평균적으로 1초에 60)
     private void Update() {
-    // 사용자 입력을 감지하고 점프하는 처리
+        if (isDead)
+        {
+            //사망 시 이 이하의 코드로 더이상 실행이 못내려가게 하기
+            return;
+        }
+        // 사용자 입력을 감지하고 점프하는 처리
         //0: 마우스 왼쪽 버튼, 1: 마우스 오른쪽 버, 2: 마우스 휠
-        if(Input.GetMouseButtonDown(0) && jumpCount < 2)
+        if (Input.GetMouseButtonDown(0) && jumpCount < 2)
         {
             //점프 횟수를 증가
             jumpCount = jumpCount + 1;
@@ -46,11 +51,17 @@ public class PlayerController : MonoBehaviour {
         {
 
         }
+        //애니메이터 컴포넌트의 Grounded 파라미터, 현재 바탁에 닿았는지에 대한 상태를 넣기
         animator.SetBool("Grounded", isGrounded);
     }
 
+    //unity 함수가 아니.
    private void Die() {
-       // 사망 처리
+        // 사망 처리
+        //사망 상태를 참으로
+        isDead = true;
+        //애니메이터 컴포넌트의 Die 트리커 파라미터를 당기기(셋하기)
+        animator.SetTrigger("Die");
    }
 
    private void OnTriggerEnter2D(Collider2D other) {
