@@ -22,9 +22,49 @@ public class PlatformSpawner : MonoBehaviour {
 
     void Start() {
         // 변수들을 초기화하고 사용할 발판들을 미리 생성
+        // count 만큼의 빈방을 생성
+        platforms = new GameObject[count];
+        for(int i = 0; i < count; i++)
+        {
+            platforms[i] = Instantiate(platformPrefab, poolPosition, transform.rotation);
+        }
+        //마지막 배치 시점을 초기화
+        lastSpawnTime = 0f;
+        //다음번 배치 까지의 시간을 0으로 초기화
+        timeBetSpawn = 0f;
     }
 
     void Update() {
         // 순서를 돌아가며 주기적으로 발판을 배치
+        if(GameManager.instance.isGameover)
+        {
+            return;
+        }
+
+        // 가장 최근의 배치 시점에서 시간이 충분히 흘렀는가 (timeBetSpawn만큼 흘렀는가 )
+        if(lastSpawnTime + timeBetSpawn <= Time.time)
+        {
+            lastSpawnTime = Time.time;
+
+            //다음 배치까지의 시간을 랜덤 변경
+            timeBetSpawn = Random.Range(timeBetSpawnMin, timeBetSpawnMax);
+
+            //배치할 높이 위치를 랜덤 결정
+            float yPos = Random.Range(yMin, yMax);
+
+            //사용할 발판을 리셋
+            platforms[currentIndex].SetActive(false);
+            platforms[currentIndex].SetActive(true);
+
+            //현재 순번을 발판을 화면 오른쪽에 배치
+            platforms[currentIndex].transform.position = new Vector2(xPos, yPos);
+            //순번 넘기기
+            currentIndex = currentIndex + 1;
+            //마지막 순번을 사용해버렸다, 순번을 처음부터 다시 시작하기
+            if(currentIndex >= count)
+            {
+                currentIndex = 0;
+            }
+        }
     }
 }
